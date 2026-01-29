@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Scooter Tuning Guide – BWFlasher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg-alt: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #2f81f7;
+      --danger: #f85149;
+      --success: #3fb950;
+      --code: #161b22;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --radius: 6px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header {
+      background: #010409;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .lang-switch button {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .lang-switch button.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 24px auto;
+      padding: 0 16px 40px;
+    }
+
+    .card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 12px;
+      font-weight: 600;
+    }
+
+    h1 { font-size: 26px; }
+    h2 { font-size: 20px; margin-top: 8px; }
+    h3 { font-size: 16px; margin-top: 16px; }
+
+    p {
+      margin: 6px 0 10px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .muted { color: var(--text-muted); font-size: 13px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #238636;
+      border-radius: 6px;
+      border: 1px solid #2ea043;
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+
+    .btn.secondary {
+      background: var(--bg);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn span.icon {
+      font-size: 16px;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: var(--code);
+      border-radius: 4px;
+      padding: 2px 4px;
+      font-size: 13px;
+      border: 1px solid var(--border);
+    }
+
+    ul, ol {
+      margin: 6px 0 10px 18px;
+      font-size: 14px;
+    }
+
+    li { margin: 4px 0; }
+
+    .hint {
+      border-left: 3px solid var(--accent);
+      padding-left: 10px;
+      margin: 8px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .warning {
+      border-left: 3px solid var(--danger);
+      padding-left: 10px;
+      margin: 8px 0;
+      font-size: 13px;
+      color: var(--danger);
+    }
+
+    .ok {
+      border-left: 3px solid var(--success);
+      padding-left: 10px;
+      margin: 8px 0;
+      font-size: 13px;
+      color: var(--success);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 4px 10px;
+      font-size: 14px;
+    }
+
+    .kv span.label {
+      color: var(--text-muted);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 14px 0;
+    }
+
+    footer {
+      max-width: 900px;
+      margin: 0 auto 24px;
+      padding: 0 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+      header { flex-direction: column; align-items: flex-start; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="title">BWFlasher Scooter Tuning Guide</div>
+  <div class="lang-switch">
+    <span>Language:</span>
+    <button id="btn-de" class="active" onclick="setLang('de')">Deutsch</button>
+    <button id="btn-en" onclick="setLang('en')">English</button>
+  </div>
+</header>
+
+<main>
+  <!-- Intro -->
+  <section id="de-intro" class="card lang lang-de">
+    <h1>Scooter Tuning mit BWFlasher</h1>
+    <p>Auf dieser Seite wird Schritt für Schritt erklärt, wie du deinen Xiaomi‑/Brightway‑Scooter mit dem Tool <code>BWFlasher + Patcher</code> tunen kannst.</p>
+    <p class="warning"><strong>Hinweis:</strong> Tuning geschieht auf eigene Verantwortung. Prüfe die gesetzlichen Regeln in deinem Land und sei dir bewusst, dass Garantie und Versicherung betroffen sein können.</p>
+  </section>
+
+  <section id="en-intro" class="card lang lang-en" style="display:none">
+    <h1>Scooter Tuning with BWFlasher</h1>
+    <p>This page explains step by step how to tune your Xiaomi/Brightway scooter using the <code>BWFlasher + Patcher</code> tool.</p>
+    <p class="warning"><strong>Notice:</strong> You use any tuning at your own risk. Check local laws and understand that warranty and insurance may be affected.</p>
+  </section>
+
+  <!-- Downloads -->
+  <section class="card">
+    <h2 id="de-downloads" class="lang lang-de">Downloads</h2>
+    <h2 id="en-downloads" class="lang lang-en" style="display:none">Downloads</h2>
+
+    <button class="btn" onclick="window.open('https://github.com/amar210d/bw-flasher-patcher/releases/download/v0.5.4/bwflasher.exe','_blank')">
+      <span class="icon">⬇️</span>
+      <span id="de-dl-app" class="lang lang-de">BWFlasher + Patcher herunterladen</span>
+      <span id="en-dl-app" class="lang lang-en" style="display:none">Download BWFlasher + Patcher</span>
+    </button>
+
+    <button class="btn secondary" onclick="window.open('https://ftdichip.com/wp-content/uploads/2025/03/CDM2123620_Setup.zip','_blank')">
+      <span class="icon">🧩</span>
+      <span id="de-dl-driver" class="lang lang-de">FTDI‑Treiber herunterladen</span>
+      <span id="en-dl-driver" class="lang lang-en" style="display:none">Download FTDI driver</span>
+    </button>
+
+    <p class="muted lang lang-de">BWFlasher ist ein Open‑Source‑Tool zum Flashen von Brightway‑Controllern über UART.</p>
+    <p class="muted lang lang-en" style="display:none">BWFlasher is an open‑source tool for flashing Brightway controllers over UART.</p>
+  </section>
+
+  <!-- Vorbereitung / Preparation -->
+  <section class="card">
+    <h2 id="de-prep-title" class="lang lang-de">Vorbereitung</h2>
+    <h2 id="en-prep-title" class="lang lang-en" style="display:none">Preparation</h2>
+
+    <div class="grid">
+      <div>
+        <h3 class="lang lang-de">Was du brauchst</h3>
+        <h3 class="lang lang-en" style="display:none">What you need</h3>
+        <ul class="lang lang-de">
+          <li>Windows‑PC oder Laptop</li>
+          <li>BWFlasher‑Programm (oben herunterladen)</li>
+          <li>FTDI‑USB‑Adapter + passendes Dashboard‑Kabel</li>
+          <li>Dein Scooter mit geladenem Akku</li>
+        </ul>
+        <ul class="lang lang-en" style="display:none">
+          <li>Windows PC or laptop</li>
+          <li>BWFlasher program (download above)</li>
+          <li>FTDI USB adapter plus matching dashboard cable</li>
+          <li>Your scooter with enough battery</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="lang lang-de">Software installieren</h3>
+        <h3 class="lang lang-en" style="display:none">Install software</h3>
+        <ol class="lang lang-de">
+          <li>BWFlasher starten und Installation abschließen.</li>
+          <li>FTDI‑Treiber <code>CDM2123620_Setup</code> entpacken und Setup ausführen.</li>
+          <li>PC ggf. neu starten, damit der Adapter als COM‑Port erkannt wird.</li>
+        </ol>
+        <ol class="lang lang-en" style="display:none">
+          <li>Run the BWFlasher installer and finish setup.</li>
+          <li>Extract the FTDI driver <code>CDM2123620_Setup</code> and run the setup file.</li>
+          <li>Restart the PC if needed so the adapter is detected as a COM port.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schritt-für-Schritt / Step-by-step -->
+  <section class="card">
+    <h2 id="de-steps-title" class="lang lang-de">Schritt‑für‑Schritt Anleitung</h2>
+    <h2 id="en-steps-title" class="lang lang-en" style="display:none">Step‑by‑step guide</h2>
+
+    <ol class="lang lang-de">
+      <li>Scooter einschalten und Rücklicht/Licht einschalten, damit du siehst, ob er an bleibt.</li>
+      <li>Lenker vom Scooter entfernen.</li>
+      <li>Dashboard‑Kabel trennen und den Flash‑Adapter einstecken.</li>
+      <li>Kontrollieren, dass das Rücklicht immer noch an ist (Scooter darf nicht ausgehen).</li>
+      <li>Adapter per USB mit dem PC verbinden.</li>
+      <li><code>BWFlasher</code> öffnen.</li>
+      <li>Im Feld <code>Serial Port</code> den richtigen COM‑Port deines Adapters wählen (meist <strong>nicht</strong> <code>COM1</code>).</li>
+      <li>Unter <code>Scooter Model</code> dein Modell auswählen (z.&nbsp;B. <code>Mi4Pro2nd</code>).</li>
+      <li>Deine gewünschten Modifikationen auswählen:
+        <ul>
+          <li><strong>SLS</strong> – Höchstgeschwindigkeit im Sport‑Modus.</li>
+          <li><strong>SLD</strong> – Höchstgeschwindigkeit im normalen Modus.</li>
+          <li><strong>MSS</strong> – Geschwindigkeit, ab der der Scooter nach dem Antritt losfährt.</li>
+          <li><strong>CCE</strong> – Cruise Control: Nach ca. 10&nbsp;s Gas halten fährt der Scooter automatisch weiter.</li>
+        </ul>
+      </li>
+      <li>Auf <code>Load Firmware</code> klicken und warten, bis die Firmware geladen ist.</li>
+      <li><code>Debug Mode</code> aktivieren.</li>
+      <li>Noch einmal prüfen, dass das Rücklicht an ist.</li>
+      <li>Auf <code>Start Update</code> klicken. Das Rücklicht sollte jetzt ausgehen.</li>
+      <li>Warten, bis die Fortschrittsleiste 100&nbsp;% erreicht hat und in der Konsole nichts mehr Neues erscheint. Anschließend kannst du den Adapter abziehen und den Scooter wieder zusammenbauen.</li>
+    </ol>
+
+    <ol class="lang lang-en" style="display:none">
+      <li>Turn the scooter on and switch on the rear light/headlight so you can see if it stays on.</li>
+      <li>Remove the handlebar from the scooter.</li>
+      <li>Unplug the dashboard cable and plug in your flashing adapter.</li>
+      <li>Check that the rear light is still on (the scooter must stay powered).</li>
+      <li>Connect the adapter to the PC via USB.</li>
+      <li>Open <code>BWFlasher</code>.</li>
+      <li>In <code>Serial Port</code> select the correct COM port of your adapter (usually <strong>not</strong> <code>COM1</code>).</li>
+      <li>Select your scooter model under <code>Scooter Model</code> (for example <code>Mi4Pro2nd</code>).</li>
+      <li>Choose your modifications:
+        <ul>
+          <li><strong>SLS</strong> – Maximum speed in Sport mode.</li>
+          <li><strong>SLD</strong> – Maximum speed in Normal mode.</li>
+          <li><strong>MSS</strong> – Speed at which the scooter starts driving after kicking.</li>
+          <li><strong>CCE</strong> – Cruise control: after about 10&nbsp;s holding the throttle the scooter keeps speed automatically.</li>
+        </ul>
+      </li>
+      <li>Click <code>Load Firmware</code> and wait until the firmware is loaded.</li>
+      <li>Enable <code>Debug Mode</code>.</li>
+      <li>Verify once more that the rear light is still on.</li>
+      <li>Click <code>Start Update</code>. The rear light should now turn off.</li>
+      <li>Wait until the progress bar reaches 100&nbsp;% and the console stops printing messages. Then you can disconnect the adapter and re‑assemble the scooter.</li>
+    </ol>
+  </section>
+
+  <!-- Bedeutung der Optionen -->
+  <section class="card">
+    <h2 id="de-options-title" class="lang lang-de">Bedeutung der Optionen</h2>
+    <h2 id="en-options-title" class="lang lang-en" style="display:none">Meaning of the options</h2>
+
+    <div class="kv">
+      <span class="label">SLS</span>
+      <span class="lang lang-de">Geschwindigkeitslimit im Sport‑Modus (höher = schneller, aber mehr Risiko und Akkuverbrauch).</span>
+      <span class="lang lang-en" style="display:none">Speed limit in sport mode (higher = faster, but more risk and battery drain).</span>
+
+      <span class="label">SLD</span>
+      <span class="lang lang-de">Geschwindigkeitslimit im normalen Modus für entspanntes Fahren.</span>
+      <span class="lang lang-en" style="display:none">Speed limit in normal mode for relaxed riding.</span>
+
+      <span class="label">MSS</span>
+      <span class="lang lang-de">Startgeschwindigkeit nach dem Antritt; niedriger Wert = früheres Losfahren.</span>
+      <span class="lang lang-en" style="display:none">Kick‑to‑start speed; lower value = starts driving earlier.</span>
+
+      <span class="label">CCE</span>
+      <span class="lang lang-de">Aktiviert Cruise Control nach ca. 10&nbsp;s konstantem Gasgeben.</span>
+      <span class="lang lang-en" style="display:none">Enables cruise control after about 10&nbsp;s of holding the throttle.</span>
+    </div>
+  </section>
+
+  <!-- Troubleshooting -->
+  <section class="card">
+    <h2 id="de-trouble-title" class="lang lang-de">Fehlerbehebung</h2>
+    <h2 id="en-trouble-title" class="lang lang-en" style="display:none">Troubleshooting</h2>
+
+    <h3 class="lang lang-de">Update bleibt bei 0&nbsp;% stehen</h3>
+    <h3 class="lang lang-en" style="display:none">Update stuck at 0&nbsp;%</h3>
+
+    <ul class="lang lang-de">
+      <li>Ist der Scooter wirklich eingeschaltet (Rücklicht an)?</li>
+      <li>Ist alles korrekt verbunden (Kabel, Adapter, USB)?</li>
+      <li>Programm schließen, Scooter aus‑ und wieder einschalten, dann erneut versuchen.</li>
+    </ul>
+    <ul class="lang lang-en" style="display:none">
+      <li>Make sure the scooter is actually powered on (rear light on).</li>
+      <li>Check all connections (cable, adapter, USB).</li>
+      <li>Close the program, power the scooter off and on, then try again.</li>
+    </ul>
+
+    <h3 class="lang lang-de">Programm stürzt ab oder hängt</h3>
+    <h3 class="lang lang-en" style="display:none">Program crashes or freezes</h3>
+
+    <ul class="lang lang-de">
+      <li>Scooter ausschalten, kurz warten, wieder einschalten.</li>
+      <li>BWFlasher neu starten und den Vorgang komplett von vorne beginnen.</li>
+    </ul>
+    <ul class="lang lang-en" style="display:none">
+      <li>Turn the scooter off, wait a few seconds, turn it back on.</li>
+      <li>Restart BWFlasher and repeat the whole process from the beginning.</li>
+    </ul>
+
+    <p class="ok lang lang-de">Wenn gar nichts hilft, kannst du den Verkäufer/Ersteller dieses Guides z.&nbsp;B. über Vinted kontaktieren.</p>
+    <p class="ok lang lang-en" style="display:none">If nothing helps, contact the seller/creator of this guide, for example via Vinted.</p>
+  </section>
+</main>
+
+<footer>
+  <p class="lang lang-de">Diese Seite steht in keinem Zusammenhang mit Xiaomi oder Brightway. Nutzung der Firmware‑Modifikationen auf eigene Gefahr.</p>
+  <p class="lang lang-en" style="display:none">This site is not affiliated with Xiaomi or Brightway. You use any firmware modifications at your own risk.</p>
+</footer>
+
+<script>
+  function setLang(lang) {
+    const deElems = document.querySelectorAll('.lang-de');
+    const enElems = document.querySelectorAll('.lang-en');
+    const btnDe = document.getElementById('btn-de');
+    const btnEn = document.getElementById('btn-en');
+
+    if (lang === 'de') {
+      deElems.forEach(el => el.style.display = '');
+      enElems.forEach(el => el.style.display = 'none');
+      btnDe.classList.add('active');
+      btnEn.classList.remove('active');
+      document.documentElement.lang = 'de';
+    } else {
+      deElems.forEach(el => el.style.display = 'none');
+      enElems.forEach(el => el.style.display = '');
+      btnDe.classList.remove('active');
+      btnEn.classList.add('active');
+      document.documentElement.lang = 'en';
+    }
+  }
+</script>
+</body>
+</html>
