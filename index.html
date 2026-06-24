@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BWFlasher – Scooter Tuning Guide</title>
-  <meta name="description" content="Schritt-für-Schritt Anleitung zum Tuning deines Xiaomi/Brightway Scooters mit BWFlasher + Patcher. Firmware flashen, Geschwindigkeit anpassen, Cruise Control aktivieren." />
-  <meta name="keywords" content="BWFlasher, Scooter Tuning, Xiaomi Scooter, Brightway, Firmware flashen, Mi4Pro" />
-  <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="BWFlasher – Scooter Tuning Guide" />
-  <meta property="og:description" content="Professionelle Anleitung zum Flashen deines Xiaomi/Brightway Scooters." />
-  <meta property="og:type" content="website" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <meta name="description" content="Schritt-für-Schritt Anleitung zum Tuning deines Xiaomi/Brightway Scooters mit BWFlasher + Patcher. Firmware flashen, Geschwindigkeit anpassen, Cruise Control aktivieren.">
+  <meta name="keywords" content="BWFlasher, Scooter Tuning, Xiaomi Scooter, Brightway, Firmware flashen, Mi4Pro">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="BWFlasher – Scooter Tuning Guide">
+  <meta property="og:description" content="Professionelle Anleitung zum Flashen deines Xiaomi/Brightway Scooters.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Manrope:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 
   <style>
     /* ─── DESIGN TOKENS ──────────────────────────────────────────── */
@@ -373,6 +371,78 @@
       border: 1px solid var(--c-border2);
     }
 
+    /* ─── FIRMWARE SELECTOR ──────────────────────────────────────── */
+    .firmware-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 560px) { .firmware-grid { grid-template-columns: 1fr; } }
+
+    .fw-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: border-color .25s, box-shadow .25s, transform .25s var(--ease-out);
+    }
+
+    .fw-card:hover {
+      border-color: var(--c-blue-dim);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+
+    .fw-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .fw-card-name {
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-size: 13.5px;
+      color: #fff;
+    }
+
+    .fw-card-sub {
+      font-family: var(--f-mono);
+      font-size: 10.5px;
+      color: var(--c-muted);
+      letter-spacing: .04em;
+    }
+
+    .fw-dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(59,158,255,.1);
+      border: 1px solid rgba(59,158,255,.22);
+      color: var(--c-blue);
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s, transform .15s;
+      flex-shrink: 0;
+    }
+
+    .fw-dl-btn:hover {
+      background: rgba(59,158,255,.2);
+      transform: translateY(-1px);
+    }
+
     /* ─── PREP SECTION ───────────────────────────────────────────── */
     .prep-grid {
       display: grid;
@@ -539,47 +609,6 @@
 
     .tag-blue { background: rgba(59,158,255,.12); border: 1px solid rgba(59,158,255,.25); color: var(--c-blue); }
     .tag-cyan { background: rgba(34,211,238,.1); border: 1px solid rgba(34,211,238,.25); color: var(--c-cyan); }
-
-    /* ─── OPTIONS GRID ───────────────────────────────────────────── */
-    .options-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 40px;
-    }
-
-    @media (max-width: 480px) { .options-grid { grid-template-columns: 1fr; } }
-
-    .opt-card {
-      background: var(--c-surface);
-      border: 1px solid var(--c-border);
-      border-radius: var(--r-md);
-      padding: 18px;
-      transition: border-color .25s, transform .25s var(--ease-out);
-    }
-
-    .opt-card:hover { border-color: var(--c-border2); transform: translateY(-2px); }
-
-    .opt-tag {
-      font-family: var(--f-mono);
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--c-blue);
-      background: rgba(59,158,255,.1);
-      border: 1px solid rgba(59,158,255,.2);
-      border-radius: 4px;
-      padding: 3px 8px;
-      display: inline-block;
-      margin-bottom: 10px;
-    }
-
-    .opt-card p {
-      font-size: 13px;
-      color: var(--c-muted);
-      line-height: 1.6;
-    }
-
-    .opt-card p strong { color: var(--c-text); font-weight: 500; }
 
     /* ─── TROUBLESHOOTING ACCORDION ──────────────────────────────── */
     .accordion {
@@ -764,33 +793,33 @@
 <main>
 
   <!-- HERO -->
-  <section class="hero fade-in" aria-labelledby="hero-title">
+  <section class="hero fade-in visible" aria-labelledby="hero-title" style="transition-delay: 0ms;">
     <div class="hero-badge">
       <span class="dot"></span>
-      <span class="lang lang-de" hidden>Open-Source · Xiaomi / Brightway</span>
+      <span class="lang lang-de" hidden="">Open-Source · Xiaomi / Brightway</span>
       <span class="lang lang-en">Open-Source · Xiaomi / Brightway</span>
     </div>
     <h1 id="hero-title">
-      <span class="lang lang-de" hidden>Dein Scooter,<br><span class="accent">deine Regeln.</span></span>
+      <span class="lang lang-de" hidden="">Dein Scooter,<br><span class="accent">deine Regeln.</span></span>
       <span class="lang lang-en">Your scooter,<br><span class="accent">your rules.</span></span>
     </h1>
     <p class="hero-sub">
-      <span class="lang lang-de" hidden>Firmware-Modifikationen für Xiaomi &amp; Brightway Scooter – Schritt für Schritt, sauber erklärt.</span>
+      <span class="lang lang-de" hidden="">Firmware-Modifikationen für Xiaomi &amp; Brightway Scooter – Schritt für Schritt, sauber erklärt.</span>
       <span class="lang lang-en">Firmware modifications for Xiaomi &amp; Brightway scooters – step by step, clearly explained.</span>
     </p>
     <div class="warning-banner" role="alert">
       <i class="icon" aria-hidden="true">⚠️</i>
-      <span class="lang lang-de" hidden>Tuning geschieht auf eigene Verantwortung. Prüfe die gesetzlichen Vorgaben in deinem Land – Garantie und Versicherungsschutz können entfallen.</span>
+      <span class="lang lang-de" hidden="">Tuning geschieht auf eigene Verantwortung. Prüfe die gesetzlichen Vorgaben in deinem Land – Garantie und Versicherungsschutz können entfallen.</span>
       <span class="lang lang-en">You use any tuning at your own risk. Check local laws – warranty and insurance coverage may be affected.</span>
     </div>
   </section>
 
   <!-- DOWNLOADS -->
-  <section class="section-gap fade-in" aria-labelledby="sec-dl">
+  <section class="section-gap fade-in visible" aria-labelledby="sec-dl" style="transition-delay: 60ms;">
     <div class="section-label">
       <span class="num">01</span>
       <h2 id="sec-dl">
-        <span class="lang lang-de" hidden>Downloads</span>
+        <span class="lang lang-de" hidden="">Downloads</span>
         <span class="lang lang-en">Downloads</span>
       </h2>
     </div>
@@ -799,14 +828,14 @@
       <div class="dl-card primary">
         <div class="card-icon" aria-hidden="true">⚡</div>
         <div>
-          <div class="dl-card-title">BWFlasher + Patcher</div>
+          <div class="dl-card-title">BWFlasher</div>
           <div class="dl-card-desc">
-            <span class="lang lang-de" hidden>Open-Source-Tool zum Flashen von Brightway-Controllern über UART. Enthält Patcher für gängige Modifikationen.</span>
-            <span class="lang lang-en">Open-source tool for flashing Brightway controllers over UART. Includes a patcher for common modifications.</span>
+            <span class="lang lang-de" hidden="">Open-Source-Tool zum Flashen von Brightway-Controllern über UART.</span>
+            <span class="lang lang-en">Open-source tool for flashing Brightway controllers over UART.</span>
           </div>
         </div>
-        <button class="dl-btn prim" onclick="window.open('https://github.com/amar210d/bw-flasher-patcher/releases/download/v0.5.4/bwflasher.exe','_blank')" aria-label="BWFlasher herunterladen">
-          ⬇ BWFlasher v0.5.4 <span style="opacity:.6;font-size:11px">.exe</span>
+        <button class="dl-btn prim" onclick="window.open('https://github.com/scooterteam/bw-flasher/releases/download/v0.6.0/bwflasher-v0.6.0-windows-x64.exe','_blank')" aria-label="BWFlasher herunterladen">
+          ⬇ BWFlasher v0.6.0 <span style="opacity:.6;font-size:11px">.exe</span>
         </button>
       </div>
       <!-- Secondary -->
@@ -815,7 +844,7 @@
         <div>
           <div class="dl-card-title">FTDI USB-Treiber</div>
           <div class="dl-card-desc">
-            <span class="lang lang-de" hidden>Benötigt, damit dein FTDI-Adapter als COM-Port erkannt wird. Für Windows 10 &amp; 11.</span>
+            <span class="lang lang-de" hidden="">Benötigt, damit dein FTDI-Adapter als COM-Port erkannt wird. Für Windows 10 &amp; 11.</span>
             <span class="lang lang-en">Required for your FTDI adapter to be recognized as a COM port. For Windows 10 &amp; 11.</span>
           </div>
         </div>
@@ -826,48 +855,103 @@
     </div>
   </section>
 
-  <!-- PREPARATION -->
-  <section class="section-gap fade-in" aria-labelledby="sec-prep">
+  <!-- FIRMWARE SELECTION -->
+  <section class="section-gap fade-in visible" aria-labelledby="sec-fw" style="transition-delay: 120ms;">
     <div class="section-label">
       <span class="num">02</span>
+      <h2 id="sec-fw">
+        <span class="lang lang-de" hidden="">Firmware auswählen</span>
+        <span class="lang lang-en">Choose your firmware</span>
+      </h2>
+    </div>
+    <div class="firmware-grid">
+
+      <div class="fw-card">
+        <div class="fw-card-info">
+          <div class="fw-card-name">Xiaomi 4 Pro 2nd</div>
+          <div class="fw-card-sub">Mi Scooter 4 Pro 2nd Gen</div>
+        </div>
+        <a class="fw-dl-btn" href="https://drive.google.com/file/d/1cXcERYIk_3RZgrzDqdbPtiiTFW8TCHFD/view?usp=drive_link" target="_blank" rel="noopener" aria-label="Xiaomi 4 Pro 2nd Firmware herunterladen">
+          ⬇ <span class="lang lang-de" hidden="">Firmware</span><span class="lang lang-en">Firmware</span>
+        </a>
+      </div>
+
+      <div class="fw-card">
+        <div class="fw-card-info">
+          <div class="fw-card-name">Xiaomi 5</div>
+          <div class="fw-card-sub">Mi Scooter 5</div>
+        </div>
+        <a class="fw-dl-btn" href="https://drive.google.com/file/d/1UgfIK0ndv4GoPXxU4kr4a2miVh7mh7or/view?usp=drive_link" target="_blank" rel="noopener" aria-label="Xiaomi 5 Firmware herunterladen">
+          ⬇ <span class="lang lang-de" hidden="">Firmware</span><span class="lang lang-en">Firmware</span>
+        </a>
+      </div>
+
+      <div class="fw-card">
+        <div class="fw-card-info">
+          <div class="fw-card-name">Xiaomi 5 Pro</div>
+          <div class="fw-card-sub">Mi Scooter 5 Pro</div>
+        </div>
+        <a class="fw-dl-btn" href="https://drive.google.com/file/d/1-yK7X5Hzifv_BhWmn2svs27mrVb_5btl/view?usp=drive_link" target="_blank" rel="noopener" aria-label="Xiaomi 5 Pro Firmware herunterladen">
+          ⬇ <span class="lang lang-de" hidden="">Firmware</span><span class="lang lang-en">Firmware</span>
+        </a>
+      </div>
+
+      <div class="fw-card">
+        <div class="fw-card-info">
+          <div class="fw-card-name">Xiaomi 5 Max</div>
+          <div class="fw-card-sub">Mi Scooter 5 Max</div>
+        </div>
+        <a class="fw-dl-btn" href="https://drive.google.com/file/d/1B_A8j-EfOqr08F6HRNw8s_yZGOCofx04/view?usp=drive_link" target="_blank" rel="noopener" aria-label="Xiaomi 5 Max Firmware herunterladen">
+          ⬇ <span class="lang lang-de" hidden="">Firmware</span><span class="lang lang-en">Firmware</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PREPARATION -->
+  <section class="section-gap fade-in" aria-labelledby="sec-prep" style="transition-delay: 180ms;">
+    <div class="section-label">
+      <span class="num">03</span>
       <h2 id="sec-prep">
-        <span class="lang lang-de" hidden>Vorbereitung</span>
+        <span class="lang lang-de" hidden="">Vorbereitung</span>
         <span class="lang lang-en">Preparation</span>
       </h2>
     </div>
     <div class="prep-grid">
       <div class="prep-card">
         <h3>
-          <span class="lang lang-de" hidden>Was du brauchst</span>
+          <span class="lang lang-de" hidden="">Was du brauchst</span>
           <span class="lang lang-en">What you need</span>
         </h3>
         <ul>
-          <li><span class="lang lang-de" hidden>Windows-PC oder Laptop</span><span class="lang lang-en">Windows PC or laptop</span></li>
-          <li><span class="lang lang-de" hidden>BWFlasher (oben herunterladen)</span><span class="lang lang-en">BWFlasher (download above)</span></li>
-          <li><span class="lang lang-de" hidden>FTDI USB-Adapter + passendes Dashboard-Kabel</span><span class="lang lang-en">FTDI USB adapter + matching dashboard cable</span></li>
-          <li><span class="lang lang-de" hidden>Scooter mit ausreichend Akkuladung</span><span class="lang lang-en">Scooter with enough battery charge</span></li>
+          <li><span class="lang lang-de" hidden="">Windows-PC oder Laptop</span><span class="lang lang-en">Windows PC or laptop</span></li>
+          <li><span class="lang lang-de" hidden="">BWFlasher (oben herunterladen)</span><span class="lang lang-en">BWFlasher (download above)</span></li>
+          <li><span class="lang lang-de" hidden="">Firmware-Datei für dein Modell (oben herunterladen)</span><span class="lang lang-en">Firmware file for your model (download above)</span></li>
+          <li><span class="lang lang-de" hidden="">FTDI USB-Adapter + passendes Dashboard-Kabel</span><span class="lang lang-en">FTDI USB adapter + matching dashboard cable</span></li>
+          <li><span class="lang lang-de" hidden="">Scooter mit ausreichend Akkuladung</span><span class="lang lang-en">Scooter with enough battery charge</span></li>
         </ul>
       </div>
       <div class="prep-card">
         <h3>
-          <span class="lang lang-de" hidden>Software einrichten</span>
+          <span class="lang lang-de" hidden="">Software einrichten</span>
           <span class="lang lang-en">Software setup</span>
         </h3>
         <ol>
-          <li><span class="lang lang-de" hidden>BWFlasher starten und Installation abschließen.</span><span class="lang lang-en">Run BWFlasher installer and finish setup.</span></li>
-          <li><span class="lang lang-de" hidden><code>CDM2123620_Setup</code> entpacken und Treiber-Setup ausführen.</span><span class="lang lang-en">Extract <code>CDM2123620_Setup</code> and run the driver setup.</span></li>
-          <li><span class="lang lang-de" hidden>PC neu starten, damit der Adapter als COM-Port erkannt wird.</span><span class="lang lang-en">Restart the PC so the adapter is detected as a COM port.</span></li>
+          <li><span class="lang lang-de" hidden="">BWFlasher starten und Installation abschließen.</span><span class="lang lang-en">Run BWFlasher installer and finish setup.</span></li>
+          <li><span class="lang lang-de" hidden=""><code>CDM2123620_Setup</code> entpacken und Treiber-Setup ausführen.</span><span class="lang lang-en">Extract <code>CDM2123620_Setup</code> and run the driver setup.</span></li>
+          <li><span class="lang lang-de" hidden="">PC neu starten, damit der Adapter als COM-Port erkannt wird.</span><span class="lang lang-en">Restart the PC so the adapter is detected as a COM port.</span></li>
         </ol>
       </div>
     </div>
   </section>
 
   <!-- STEP-BY-STEP -->
-  <section class="section-gap fade-in" aria-labelledby="sec-steps">
+  <section class="section-gap fade-in" aria-labelledby="sec-steps" style="transition-delay: 240ms;">
     <div class="section-label">
-      <span class="num">03</span>
+      <span class="num">04</span>
       <h2 id="sec-steps">
-        <span class="lang lang-de" hidden>Schritt-für-Schritt</span>
+        <span class="lang lang-de" hidden="">Schritt-für-Schritt</span>
         <span class="lang lang-en">Step-by-step guide</span>
       </h2>
     </div>
@@ -876,7 +960,7 @@
       <li class="step-item">
         <div class="step-num">01</div>
         <div class="step-body">
-          <span class="lang lang-de" hidden>Scooter einschalten und <strong>Rücklicht aktivieren</strong> – so erkennst du, ob er anlässt.</span>
+          <span class="lang lang-de" hidden="">Scooter einschalten und <strong>Rücklicht aktivieren</strong> – so erkennst du, ob er anlässt.</span>
           <span class="lang lang-en">Turn the scooter on and <strong>activate the rear light</strong> so you can see if it stays powered.</span>
         </div>
       </li>
@@ -884,7 +968,7 @@
       <li class="step-item">
         <div class="step-num">02</div>
         <div class="step-body">
-          <span class="lang lang-de" hidden><strong>Lenker abmontieren</strong> vom Scooter.</span>
+          <span class="lang lang-de" hidden=""><strong>Lenker abmontieren</strong> vom Scooter.</span>
           <span class="lang lang-en"><strong>Remove the handlebar</strong> from the scooter.</span>
         </div>
       </li>
@@ -892,7 +976,7 @@
       <li class="step-item">
         <div class="step-num">03</div>
         <div class="step-body">
-          <span class="lang lang-de" hidden><strong>Dashboard-Kabel trennen</strong> und den Flash-Adapter einstecken.</span>
+          <span class="lang lang-de" hidden=""><strong>Dashboard-Kabel trennen</strong> und den Flash-Adapter einstecken.</span>
           <span class="lang lang-en"><strong>Unplug the dashboard cable</strong> and insert the flashing adapter.</span>
         </div>
       </li>
@@ -900,7 +984,7 @@
       <li class="step-item">
         <div class="step-num">04</div>
         <div class="step-body">
-          <span class="lang lang-de" hidden>Kontrollieren: <strong>Rücklicht muss noch leuchten.</strong> Der Scooter darf nicht ausgehen.</span>
+          <span class="lang lang-de" hidden="">Kontrollieren: <strong>Rücklicht muss noch leuchten.</strong> Der Scooter darf nicht ausgehen.</span>
           <span class="lang lang-en">Verify: <strong>rear light must still be on.</strong> The scooter must stay powered.</span>
         </div>
       </li>
@@ -908,7 +992,7 @@
       <li class="step-item">
         <div class="step-num">05</div>
         <div class="step-body">
-          <span class="lang lang-de" hidden>Adapter per USB mit dem PC verbinden. <strong>BWFlasher öffnen.</strong></span>
+          <span class="lang lang-de" hidden="">Adapter per USB mit dem PC verbinden. <strong>BWFlasher öffnen.</strong></span>
           <span class="lang lang-en">Connect the adapter to your PC via USB. <strong>Open BWFlasher.</strong></span>
         </div>
       </li>
@@ -916,7 +1000,7 @@
       <li class="step-item">
         <div class="step-num">06</div>
         <div class="step-body">
-          <span class="lang lang-de" hidden>Im Feld <code>Serial Port</code> den richtigen COM-Port wählen – <strong>meistens nicht</strong> <code>COM1</code>.</span>
+          <span class="lang lang-de" hidden="">Im Feld <code>Serial Port</code> den richtigen COM-Port wählen – <strong>meistens nicht</strong> <code>COM1</code>.</span>
           <span class="lang lang-en">In <code>Serial Port</code> select the correct COM port – <strong>usually not</strong> <code>COM1</code>.</span>
         </div>
       </li>
@@ -924,53 +1008,31 @@
       <li class="step-item">
         <div class="step-num">07</div>
         <div class="step-body">
-          <span class="lang lang-de" hidden>Unter <code>Scooter Model</code> dein Modell auswählen, z.&nbsp;B. <code>Mi4Pro2nd</code>.</span>
-          <span class="lang lang-en">Select your model under <code>Scooter Model</code>, e.g. <code>Mi4Pro2nd</code>.</span>
+          <span class="lang lang-de" hidden="">Auf den <code>Browse</code>-Button klicken und die <strong>Firmware-Datei auswählen</strong>, die du vorhin für deinen Scooter heruntergeladen hast.</span>
+          <span class="lang lang-en">Click the <code>Browse</code> button and <strong>select the firmware file</strong> you downloaded earlier for your scooter model.</span>
         </div>
       </li>
 
       <li class="step-item">
         <div class="step-num">08</div>
         <div class="step-body">
-          <span class="lang lang-de" hidden><strong>Gewünschte Modifikationen auswählen:</strong></span>
-          <span class="lang lang-en"><strong>Select your modifications:</strong></span>
-          <ul>
-            <li><span class="tag tag-blue">SLS</span> <span class="lang lang-de" hidden>Höchstgeschwindigkeit im Sport-Modus</span><span class="lang lang-en">Max speed in Sport mode</span></li>
-            <li><span class="tag tag-blue">SLD</span> <span class="lang lang-de" hidden>Höchstgeschwindigkeit im Normal-Modus</span><span class="lang lang-en">Max speed in Normal mode</span></li>
-            <li><span class="tag tag-cyan">MSS</span> <span class="lang lang-de" hidden>Startgeschwindigkeit nach dem Antritt</span><span class="lang lang-en">Kick-to-start speed</span></li>
-            <li><span class="tag tag-cyan">CCE</span> <span class="lang lang-de" hidden>Cruise Control aktivieren</span><span class="lang lang-en">Enable cruise control</span></li>
-          </ul>
+          <span class="lang lang-de" hidden=""><code>Debug Mode</code> aktivieren – danach nochmals prüfen, ob das <strong>Rücklicht an ist.</strong></span>
+          <span class="lang lang-en">Enable <code>Debug Mode</code> – then verify once more that the <strong>rear light is still on.</strong></span>
         </div>
       </li>
 
       <li class="step-item">
         <div class="step-num">09</div>
         <div class="step-body">
-          <span class="lang lang-de" hidden>Auf <code>Load Firmware</code> klicken und warten, bis die Firmware vollständig geladen ist.</span>
-          <span class="lang lang-en">Click <code>Load Firmware</code> and wait until the firmware has fully loaded.</span>
+          <span class="lang lang-de" hidden="">Auf <code>Start Update</code> klicken. Das Rücklicht <strong>sollte jetzt ausgehen</strong> – das ist normal.</span>
+          <span class="lang lang-en">Click <code>Start Update</code>. The rear light <strong>should now turn off</strong> – this is expected.</span>
         </div>
       </li>
 
       <li class="step-item">
         <div class="step-num">10</div>
         <div class="step-body">
-          <span class="lang lang-de" hidden><code>Debug Mode</code> aktivieren – danach nochmals prüfen, ob das <strong>Rücklicht an ist.</strong></span>
-          <span class="lang lang-en">Enable <code>Debug Mode</code> – then verify once more that the <strong>rear light is still on.</strong></span>
-        </div>
-      </li>
-
-      <li class="step-item">
-        <div class="step-num">11</div>
-        <div class="step-body">
-          <span class="lang lang-de" hidden>Auf <code>Start Update</code> klicken. Das Rücklicht <strong>sollte jetzt ausgehen</strong> – das ist normal.</span>
-          <span class="lang lang-en">Click <code>Start Update</code>. The rear light <strong>should now turn off</strong> – this is expected.</span>
-        </div>
-      </li>
-
-      <li class="step-item">
-        <div class="step-num">12</div>
-        <div class="step-body">
-          <span class="lang lang-de" hidden>Warten, bis die Fortschrittsleiste <strong>100&nbsp;%</strong> erreicht und die Konsole ruhig ist. Adapter abziehen, Scooter wieder zusammenbauen.</span>
+          <span class="lang lang-de" hidden="">Warten, bis die Fortschrittsleiste <strong>100&nbsp;%</strong> erreicht und die Konsole ruhig ist. Adapter abziehen, Scooter wieder zusammenbauen.</span>
           <span class="lang lang-en">Wait until the progress bar reaches <strong>100&nbsp;%</strong> and the console goes quiet. Disconnect the adapter and reassemble the scooter.</span>
         </div>
       </li>
@@ -978,53 +1040,12 @@
     </ol>
   </section>
 
-  <!-- OPTIONS -->
-  <section class="section-gap fade-in" aria-labelledby="sec-opts">
-    <div class="section-label">
-      <span class="num">04</span>
-      <h2 id="sec-opts">
-        <span class="lang lang-de" hidden>Optionen im Überblick</span>
-        <span class="lang lang-en">Options overview</span>
-      </h2>
-    </div>
-    <div class="options-grid">
-      <div class="opt-card">
-        <div class="opt-tag">SLS</div>
-        <p>
-          <span class="lang lang-de" hidden><strong>Sport-Modus Limit.</strong> Höherer Wert = schneller, aber mehr Akkuverbrauch und Risiko.</span>
-          <span class="lang lang-en"><strong>Sport mode limit.</strong> Higher value = faster, but more battery drain and risk.</span>
-        </p>
-      </div>
-      <div class="opt-card">
-        <div class="opt-tag">SLD</div>
-        <p>
-          <span class="lang lang-de" hidden><strong>Normal-Modus Limit.</strong> Für entspanntes Alltagsfahren auf niedrigerem Geschwindigkeitsniveau.</span>
-          <span class="lang lang-en"><strong>Normal mode limit.</strong> For relaxed everyday riding at a lower speed level.</span>
-        </p>
-      </div>
-      <div class="opt-card">
-        <div class="opt-tag">MSS</div>
-        <p>
-          <span class="lang lang-de" hidden><strong>Startgeschwindigkeit.</strong> Niedrigerer Wert = Scooter fährt nach dem Antritt früher los.</span>
-          <span class="lang lang-en"><strong>Kick-start speed.</strong> Lower value = scooter starts driving sooner after kicking.</span>
-        </p>
-      </div>
-      <div class="opt-card">
-        <div class="opt-tag">CCE</div>
-        <p>
-          <span class="lang lang-de" hidden><strong>Cruise Control.</strong> Nach ca. 10&nbsp;s konstantem Gasgeben hält der Scooter die Geschwindigkeit automatisch.</span>
-          <span class="lang lang-en"><strong>Cruise Control.</strong> After holding the throttle for ~10 s the scooter maintains speed automatically.</span>
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- TROUBLESHOOTING -->
-  <section class="section-gap fade-in" aria-labelledby="sec-trouble">
+  <section class="section-gap fade-in" aria-labelledby="sec-trouble" style="transition-delay: 300ms;">
     <div class="section-label">
       <span class="num">05</span>
       <h2 id="sec-trouble">
-        <span class="lang lang-de" hidden>Fehlerbehebung</span>
+        <span class="lang lang-de" hidden="">Fehlerbehebung</span>
         <span class="lang lang-en">Troubleshooting</span>
       </h2>
     </div>
@@ -1033,16 +1054,16 @@
       <div class="acc-item">
         <button class="acc-trigger" onclick="toggleAcc(this)" aria-expanded="false">
           <span>
-            <span class="lang lang-de" hidden>Update bleibt bei 0&nbsp;% stehen</span>
+            <span class="lang lang-de" hidden="">Update bleibt bei 0&nbsp;% stehen</span>
             <span class="lang lang-en">Update stuck at 0&nbsp;%</span>
           </span>
           <span class="chevron" aria-hidden="true">⌄</span>
         </button>
-        <div class="acc-body" hidden>
+        <div class="acc-body" hidden="">
           <ul>
-            <li><span class="lang lang-de" hidden>Ist der Scooter eingeschaltet? (Rücklicht sollte leuchten)</span><span class="lang lang-en">Is the scooter powered on? (rear light should be on)</span></li>
-            <li><span class="lang lang-de" hidden>Sind alle Verbindungen korrekt? (Kabel, Adapter, USB)</span><span class="lang lang-en">Are all connections correct? (cable, adapter, USB)</span></li>
-            <li><span class="lang lang-de" hidden>Programm schließen, Scooter aus- und wieder einschalten, erneut versuchen.</span><span class="lang lang-en">Close the program, power cycle the scooter, try again.</span></li>
+            <li><span class="lang lang-de" hidden="">Ist der Scooter eingeschaltet? (Rücklicht sollte leuchten)</span><span class="lang lang-en">Is the scooter powered on? (rear light should be on)</span></li>
+            <li><span class="lang lang-de" hidden="">Sind alle Verbindungen korrekt? (Kabel, Adapter, USB)</span><span class="lang lang-en">Are all connections correct? (cable, adapter, USB)</span></li>
+            <li><span class="lang lang-de" hidden="">Programm schließen, Scooter aus- und wieder einschalten, erneut versuchen.</span><span class="lang lang-en">Close the program, power cycle the scooter, try again.</span></li>
           </ul>
         </div>
       </div>
@@ -1050,19 +1071,19 @@
       <div class="acc-item">
         <button class="acc-trigger" onclick="toggleAcc(this)" aria-expanded="false">
           <span>
-            <span class="lang lang-de" hidden>Programm stürzt ab oder hängt</span>
+            <span class="lang lang-de" hidden="">Programm stürzt ab oder hängt</span>
             <span class="lang lang-en">Program crashes or freezes</span>
           </span>
           <span class="chevron" aria-hidden="true">⌄</span>
         </button>
-        <div class="acc-body" hidden>
+        <div class="acc-body" hidden="">
           <ul>
-            <li><span class="lang lang-de" hidden>Scooter ausschalten, kurz warten, wieder einschalten.</span><span class="lang lang-en">Turn the scooter off, wait a few seconds, turn it back on.</span></li>
-            <li><span class="lang lang-de" hidden>BWFlasher neu starten und den Vorgang von vorne beginnen.</span><span class="lang lang-en">Restart BWFlasher and repeat the whole process from the start.</span></li>
+            <li><span class="lang lang-de" hidden="">Scooter ausschalten, kurz warten, wieder einschalten.</span><span class="lang lang-en">Turn the scooter off, wait a few seconds, turn it back on.</span></li>
+            <li><span class="lang lang-de" hidden="">BWFlasher neu starten und den Vorgang von vorne beginnen.</span><span class="lang lang-en">Restart BWFlasher and repeat the whole process from the start.</span></li>
           </ul>
           <div class="ok-note">
-            <span class="lang lang-de" hidden>💬 Wenn gar nichts hilft, kannst du den Verkäufer/Ersteller dieses Guides z.&nbsp;B. über Vinted kontaktieren.</span>
-            <span class="lang lang-en">💬 If nothing helps, contact the seller/creator of this guide, for example via Vinted.</span>
+            <span class="lang lang-de" hidden="">💬 Wenn gar nichts hilft, kannst du den Verkäufer/Ersteller dieses Guides z.&nbsp;B. über Ebay oder Email kontaktieren.</span>
+            <span class="lang lang-en">💬 If nothing helps, contact the seller/creator of this guide, for example via Ebay or Email.</span>
           </div>
         </div>
       </div>
@@ -1078,11 +1099,11 @@
     <div class="footer-top">
       <div class="footer-brand">BWFlasher Guide</div>
       <div class="footer-links">
-        <a href="https://github.com/amar210d/bw-flasher-patcher" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/scooterteam/bw-flasher" target="_blank" rel="noopener">GitHub</a>
         <a href="https://ftdichip.com" target="_blank" rel="noopener">FTDI</a>
       </div>
     </div>
-    <p class="footer-legal lang lang-de" hidden>Diese Seite steht in keinem Zusammenhang mit Xiaomi oder Brightway. Jede Nutzung von Firmware-Modifikationen geschieht auf eigene Gefahr. Prüfe die gesetzlichen Bestimmungen in deinem Land.</p>
+    <p class="footer-legal lang lang-de" hidden="">Diese Seite steht in keinem Zusammenhang mit Xiaomi oder Brightway. Jede Nutzung von Firmware-Modifikationen geschieht auf eigene Gefahr. Prüfe die gesetzlichen Bestimmungen in deinem Land.</p>
     <p class="footer-legal lang lang-en">This site is not affiliated with Xiaomi or Brightway. You use any firmware modifications entirely at your own risk. Check the applicable laws in your country.</p>
   </div>
 </footer>
@@ -1144,5 +1165,5 @@
     observer.observe(el);
   });
 </script>
-</body>
-</html>
+
+</body></html>
